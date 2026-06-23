@@ -49,7 +49,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. Scroll Animations (Intersection Observer - Robust fallback)
+    // 3.5. Mobile 3-Dots Dropdown Menu Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileDropdown = document.getElementById('mobile-dropdown');
+    
+    if (mobileMenuBtn && mobileDropdown) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileDropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking a link or clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileDropdown.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileDropdown.classList.remove('active');
+            }
+        });
+        
+        const dropLinks = mobileDropdown.querySelectorAll('.dropdown-link');
+        dropLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileDropdown.classList.remove('active');
+            });
+        });
+    }
+
+    // 4. Scroll Animations (Intersection Observer)
     const observerOptions = { root: null, rootMargin: '50px', threshold: 0.1 };
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -62,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.m3-animate').forEach(el => observer.observe(el));
 
-    // 5. Robust Material Carousel Logic (Bulletproof Scroll Fix)
+    // 5. Robust Material Carousel Logic
     function setupCarousel(trackId, prevBtnClass, nextBtnClass, isCenterMode = false) {
         const track = document.getElementById(trackId);
         if (!track) return;
@@ -72,23 +97,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextBtn = wrapper.querySelector(nextBtnClass);
         const items = Array.from(track.children);
 
-        function handleScrollAction(btn, direction) {
-            // Button Spring Effect
-            btn.classList.remove('btn-press-anim');
-            void btn.offsetWidth; // Force Reflow
-            btn.classList.add('btn-press-anim');
-
-            // Calculate actual width reliably, fallback to hardcoded if layout shifts
+        function handleScrollAction(direction) {
             const rawWidth = items[0] ? items[0].offsetWidth : (isCenterMode ? 320 : 350);
-            const itemWidth = rawWidth + 24; // Width + CSS Gap
-
+            const itemWidth = rawWidth + 24; // Width + Gap
             track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
         }
 
-        if(prevBtn) prevBtn.addEventListener('click', () => handleScrollAction(prevBtn, -1));
-        if(nextBtn) nextBtn.addEventListener('click', () => handleScrollAction(nextBtn, 1));
+        if(prevBtn) prevBtn.addEventListener('click', () => handleScrollAction(-1));
+        if(nextBtn) nextBtn.addEventListener('click', () => handleScrollAction(1));
 
-        // Center Mode Active Scaling (Specifically for Screenshots 1-10)
+        // Center Mode Active Scaling 
         if (isCenterMode) {
             const updateActiveItem = () => {
                 const trackCenter = track.getBoundingClientRect().left + (track.clientWidth / 2);
@@ -110,13 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             track.addEventListener('scroll', () => requestAnimationFrame(updateActiveItem));
-            // Trigger multiple times during initialization to ensure images are fully laid out
             setTimeout(updateActiveItem, 100);
-            setTimeout(updateActiveItem, 800);
+            setTimeout(updateActiveItem, 800); // Failsafe for image loads
             window.addEventListener('resize', updateActiveItem);
         }
 
-        // Mouse Drag to Scroll (Desktop support)
+        // Mouse Drag to Scroll 
         let isDown = false;
         let startX;
         let scrollLeft;

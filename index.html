@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Circle | Premium Custom ROM</title>
-    <!-- Site Favicon -->
+    <title>Project CiRCLE | Premium Custom ROM</title>
+    
+    <!-- Forced Favicons -->
     <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <link rel="shortcut icon" href="assets/logo.svg">
+    <link rel="apple-touch-icon" href="assets/logo.svg">
     
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="loading">
     
-    <!-- Background System (Fixed Z-Index & Visibility) -->
+    <!-- Background System -->
     <div class="video-background">
+        <!-- Desktop Video -->
         <video class="bg-desktop" src="assets/bg.mp4" autoplay loop muted playsinline></video>
-        <video class="bg-mobile" src="assets/bg-mobile.mp4" autoplay loop muted playsinline></video>
+        <!-- Static Mobile Image -->
+        <img class="bg-mobile" src="assets/bg-mobile.jpg" alt="Background">
+        
         <div class="m3-dynamic-gradient"></div>
         <div class="m3-surface-tint"></div>
     </div>
 
     <!-- Grand Launch Sequence Loader -->
     <div id="loader" class="m3-loader">
-        <img src="assets/logo.svg" alt="Project Circle Logo" class="loader-svg">
+        <img src="assets/logo.svg" alt="Project CiRCLE Logo" class="loader-svg">
         <h1 class="loader-logo">
-            <span class="text-white">Project</span><span class="text-primary">Circle</span>
+            <span class="text-white">Project</span><span class="text-primary">CiRCLE</span>
         </h1>
         <div class="loader-ripple"></div>
     </div>
@@ -34,14 +39,31 @@
         <div class="nav-container">
             <a href="#" class="nav-logo m-ripple">
                 <img src="assets/logo.svg" alt="Logo" class="nav-svg-logo">
-                <span class="text-white">Project</span><span class="text-primary">Circle</span>
+                <span class="text-white">Project</span><span class="text-primary">CiRCLE</span>
             </a>
+            
+            <!-- Desktop Links -->
             <nav class="nav-links">
                 <a href="#about" class="nav-link m-ripple">About</a>
                 <a href="#features" class="nav-link m-ripple">Features</a>
                 <a href="#screenshots" class="nav-link m-ripple">Screenshots</a>
                 <a href="#devices" class="nav-link m-ripple">Devices</a>
             </nav>
+
+            <!-- Mobile 3 Dots Menu -->
+            <button id="mobile-menu-btn" class="mobile-menu-btn m-ripple" aria-label="Menu">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="#FFFFFF">
+                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Dropdown -->
+        <div id="mobile-dropdown" class="mobile-dropdown">
+            <a href="#about" class="dropdown-link m-ripple">About</a>
+            <a href="#features" class="dropdown-link m-ripple">Features</a>
+            <a href="#screenshots" class="dropdown-link m-ripple">Screenshots</a>
+            <a href="#devices" class="dropdown-link m-ripple">Devices</a>
         </div>
     </header>
 
@@ -54,7 +76,7 @@
                 <div class="hero-content">
                     <h1 class="hero-title m3-intro-anim">
                         <span class="text-white">Project</span><br>
-                        <span class="text-primary">Circle</span>
+                        <span class="text-primary">CiRCLE</span>
                     </h1>
                     <p class="hero-subtitle m3-intro-anim m3-delay-1">
                         LineageOS based Lightweight Fine Crafted OS
@@ -66,11 +88,11 @@
                     </div>
                 </div>
                 
-                <!-- Right: Premium Curved Thumbnail -->
+                <!-- Right: Premium Curved Thumbnail (Drops below text on Mobile) -->
                 <div class="hero-visual m3-intro-anim m3-delay-3">
                     <div class="hero-thumbnail-wrapper">
                         <div class="thumbnail-glow"></div>
-                        <img src="assets/thumbnail/1.jpg" alt="Project Circle Thumbnail" class="hero-thumbnail">
+                        <img src="assets/thumbnail/1.jpg" alt="Project CiRCLE Thumbnail" class="hero-thumbnail">
                     </div>
                 </div>
             </div>
@@ -218,8 +240,8 @@
     <!-- Footer -->
     <footer class="m3-footer">
         <div class="footer-content m3-animate m3-fade-slide-up">
-            <img src="assets/logo.svg" alt="Project Circle Logo" class="footer-logo">
-            <p>&copy; Project Circle 2k26 Rights Reserved</p>
+            <img src="assets/logo.svg" alt="Project CiRCLE Logo" class="footer-logo">
+            <p>&copy; Project CiRCLE 2k26 Rights Reserved</p>
         </div>
     </footer>
 
