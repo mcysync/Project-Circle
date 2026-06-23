@@ -12,6 +12,14 @@
 </head>
 <body class="loading">
     
+    <!-- Background System (Fixed Z-Index & Visibility) -->
+    <div class="video-background">
+        <video class="bg-desktop" src="assets/bg.mp4" autoplay loop muted playsinline></video>
+        <video class="bg-mobile" src="assets/bg-mobile.mp4" autoplay loop muted playsinline></video>
+        <div class="m3-dynamic-gradient"></div>
+        <div class="m3-surface-tint"></div>
+    </div>
+
     <!-- Grand Launch Sequence Loader -->
     <div id="loader" class="m3-loader">
         <img src="assets/logo.svg" alt="Project Circle Logo" class="loader-svg">
@@ -19,14 +27,6 @@
             <span class="text-white">Project</span><span class="text-primary">Circle</span>
         </h1>
         <div class="loader-ripple"></div>
-    </div>
-
-    <!-- Background System -->
-    <div class="video-background">
-        <div class="m3-surface-tint"></div>
-        <div class="m3-dynamic-gradient"></div>
-        <video class="bg-desktop" src="assets/bg.mp4" autoplay loop muted playsinline></video>
-        <video class="bg-mobile" src="assets/bg-mobile.mp4" autoplay loop muted playsinline></video>
     </div>
 
     <!-- Sticky Floating App Bar -->

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         document.body.classList.remove('loading');
         document.body.classList.add('loaded');
-    }, 1600); // Wait for the visual pulse, then explode into the site
+    }, 1600);
 
     // 2. Ripple Effect Logic
     const rippleElements = document.querySelectorAll('.m-ripple');
@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. Scroll Animations (Intersection Observer)
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+    // 4. Scroll Animations (Intersection Observer - Robust fallback)
+    const observerOptions = { root: null, rootMargin: '50px', threshold: 0.1 };
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.m3-animate').forEach(el => observer.observe(el));
 
-    // 5. Extreme Material Carousel Motion Logic
+    // 5. Robust Material Carousel Logic (Bulletproof Scroll Fix)
     function setupCarousel(trackId, prevBtnClass, nextBtnClass, isCenterMode = false) {
         const track = document.getElementById(trackId);
         if (!track) return;
@@ -72,27 +72,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextBtn = wrapper.querySelector(nextBtnClass);
         const items = Array.from(track.children);
 
-        function animateInteraction(btn, direction) {
+        function handleScrollAction(btn, direction) {
+            // Button Spring Effect
             btn.classList.remove('btn-press-anim');
-            void btn.offsetWidth; // force DOM reflow
+            void btn.offsetWidth; // Force Reflow
             btn.classList.add('btn-press-anim');
 
-            track.classList.add('track-shifting');
-            
-            setTimeout(() => {
-                const itemWidth = items[0].getBoundingClientRect().width + 24; 
-                track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
-                
-                setTimeout(() => {
-                    track.classList.remove('track-shifting');
-                }, 400); 
-            }, 100);
+            // Calculate actual width reliably, fallback to hardcoded if layout shifts
+            const rawWidth = items[0] ? items[0].offsetWidth : (isCenterMode ? 320 : 350);
+            const itemWidth = rawWidth + 24; // Width + CSS Gap
+
+            track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
         }
 
-        if(prevBtn) prevBtn.addEventListener('click', () => animateInteraction(prevBtn, -1));
-        if(nextBtn) nextBtn.addEventListener('click', () => animateInteraction(nextBtn, 1));
+        if(prevBtn) prevBtn.addEventListener('click', () => handleScrollAction(prevBtn, -1));
+        if(nextBtn) nextBtn.addEventListener('click', () => handleScrollAction(nextBtn, 1));
 
-        // Center Mode Active Scaling (For Screenshots 1-10)
+        // Center Mode Active Scaling (Specifically for Screenshots 1-10)
         if (isCenterMode) {
             const updateActiveItem = () => {
                 const trackCenter = track.getBoundingClientRect().left + (track.clientWidth / 2);
@@ -114,11 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             track.addEventListener('scroll', () => requestAnimationFrame(updateActiveItem));
-            setTimeout(updateActiveItem, 200);
+            // Trigger multiple times during initialization to ensure images are fully laid out
+            setTimeout(updateActiveItem, 100);
+            setTimeout(updateActiveItem, 800);
             window.addEventListener('resize', updateActiveItem);
         }
 
-        // Mouse Drag to Scroll implementation
+        // Mouse Drag to Scroll (Desktop support)
         let isDown = false;
         let startX;
         let scrollLeft;
@@ -147,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - track.offsetLeft;
-            const walk = (x - startX) * 2.5; 
+            const walk = (x - startX) * 2; 
             track.scrollLeft = scrollLeft - walk;
         });
     }
