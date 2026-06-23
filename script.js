@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileDropdown.classList.toggle('active');
         });
 
-        // Close dropdown when clicking a link or clicking outside
         document.addEventListener('click', (e) => {
             if (!mobileDropdown.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
                 mobileDropdown.classList.remove('active');
@@ -74,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Scroll Animations (Intersection Observer)
+    // 4. Scroll Animations
     const observerOptions = { root: null, rootMargin: '50px', threshold: 0.1 };
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -87,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.m3-animate').forEach(el => observer.observe(el));
 
-    // 5. Robust Material Carousel Logic
+    // 5. Material Carousel Logic (Restored Spring & Shift Animations)
     function setupCarousel(trackId, prevBtnClass, nextBtnClass, isCenterMode = false) {
         const track = document.getElementById(trackId);
         if (!track) return;
@@ -97,14 +96,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextBtn = wrapper.querySelector(nextBtnClass);
         const items = Array.from(track.children);
 
-        function handleScrollAction(direction) {
-            const rawWidth = items[0] ? items[0].offsetWidth : (isCenterMode ? 320 : 350);
-            const itemWidth = rawWidth + 24; // Width + Gap
-            track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+        function handleScrollAction(btn, direction) {
+            // Apply Spring Button Click Anim
+            btn.classList.remove('btn-press-anim');
+            void btn.offsetWidth; // Force Reflow
+            btn.classList.add('btn-press-anim');
+
+            // Apply Container Squish/Shift Anim
+            track.classList.add('track-shifting');
+            
+            setTimeout(() => {
+                const rawWidth = items[0] ? items[0].offsetWidth : (isCenterMode ? 320 : 350);
+                const itemWidth = rawWidth + 24; 
+                track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+
+                setTimeout(() => {
+                    track.classList.remove('track-shifting');
+                }, 400); // Remove shift class when scroll settles
+            }, 100);
         }
 
-        if(prevBtn) prevBtn.addEventListener('click', () => handleScrollAction(-1));
-        if(nextBtn) nextBtn.addEventListener('click', () => handleScrollAction(1));
+        if(prevBtn) prevBtn.addEventListener('click', () => handleScrollAction(prevBtn, -1));
+        if(nextBtn) nextBtn.addEventListener('click', () => handleScrollAction(nextBtn, 1));
 
         // Center Mode Active Scaling 
         if (isCenterMode) {
@@ -129,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             track.addEventListener('scroll', () => requestAnimationFrame(updateActiveItem));
             setTimeout(updateActiveItem, 100);
-            setTimeout(updateActiveItem, 800); // Failsafe for image loads
+            setTimeout(updateActiveItem, 800); 
             window.addEventListener('resize', updateActiveItem);
         }
 
