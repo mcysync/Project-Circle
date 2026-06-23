@@ -3,178 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Circle | Expressive Android Firmware</title>
-    <!-- Fallback Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Project Circle | Premium Custom ROM</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Using Google Fonts as a fallback to visually render Google Sans Display/Text characteristics -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-
-    <!-- Scroll Progress Indicator -->
-    <div class="scroll-progress"></div>
-
-    <!-- Background System with Purple/Maroon Ambient Lighting -->
-    <div class="bg-system">
-        <video id="bg-video" autoplay loop muted playsinline>
-            <source src="assets/bg.mp4" type="video/mp4">
-        </video>
-        <div class="bg-overlay"></div>
-        <!-- Dynamic Purple Lighting Orbs -->
-        <div class="ambient-glow glow-1"></div>
-        <div class="ambient-glow glow-2"></div>
-        <div class="ambient-glow glow-3"></div>
+<body class="loading">
+    
+    <!-- Premium Launch Sequence Loader -->
+    <div id="loader" class="m3-loader">
+        <h1 class="loader-logo">
+            <span class="text-white">Project</span><span class="text-primary">Circle</span>
+        </h1>
     </div>
 
-    <!-- Top App Bar -->
-    <header class="top-app-bar" id="navbar">
+    <!-- Background System -->
+    <div class="video-background">
+        <div class="m3-surface-tint"></div>
+        <div class="m3-dynamic-gradient"></div>
+        <video class="bg-desktop" src="assets/bg.mp4" autoplay loop muted playsinline></video>
+        <video class="bg-mobile" src="assets/bg-mobile.mp4" autoplay loop muted playsinline></video>
+    </div>
+
+    <!-- Sticky Floating App Bar -->
+    <header id="navbar" class="m3-app-bar">
         <div class="nav-container">
-            <div class="logo floating">
-                <span class="logo-project">Project</span><span class="logo-circle">Circle</span>
-            </div>
+            <a href="#" class="nav-logo m-ripple">
+                <span class="text-white">Project</span><span class="text-primary">Circle</span>
+            </a>
             <nav class="nav-links">
-                <a href="#features" class="nav-link ripple">Features</a>
-                <a href="#changelogs" class="nav-link ripple">Changelogs</a>
-                <a href="#credits" class="nav-link ripple">Credits</a>
+                <a href="#features" class="nav-link m-ripple">Features</a>
+                <a href="#changelogs" class="nav-link m-ripple">Changelogs</a>
+                <a href="#credits" class="nav-link m-ripple">Credits</a>
             </nav>
         </div>
     </header>
 
     <main>
         <!-- Hero Section -->
-        <section class="hero" id="hero">
+        <section id="hero" class="m3-section hero-section">
             <div class="hero-content">
-                <h1 class="hero-title reveal stagger-1">Project Circle</h1>
-                <!-- Updated, larger, and refined subtitle -->
-                <p class="hero-subtitle reveal stagger-2">
-                    An advanced aftermarket firmware based on LineageOS.<br>
-                    Crafted with hand-picked features, unmatched performance, and a stunning expressive design.
+                <h1 class="hero-title m3-animate m3-spring-up">
+                    <span class="text-white char-reveal">Project</span>
+                    <span class="text-primary char-reveal">Circle</span>
+                </h1>
+                <p class="hero-subtitle m3-animate m3-fade-slide-up m3-delay-1">
+                    LineageOS based Lightweight Fine Crafted OS
                 </p>
-                <div class="reveal stagger-3">
-                    <button class="m3-btn-tonal ripple" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
-                        Explore Experience
-                    </button>
+                <div class="hero-actions m3-animate m3-scale-up m3-delay-2">
+                    <a href="#features" class="m3-button m3-button-filled m-ripple breathing">
+                        Explore
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- Features Section -->
-        <section class="features" id="features">
-            <div class="section-header reveal">
-                <h2 class="section-title">Core Experience</h2>
+        <section id="features" class="m3-section">
+            <div class="section-header m3-animate m3-spring-up">
+                <h2 class="section-title">Features</h2>
             </div>
             
-            <div class="carousel-container reveal">
-                <button class="carousel-btn left ripple" id="btn-prev">&lt;</button>
-                <div class="carousel-track" id="features-track">
-                    
-                    <!-- Feature Cards with 3D Tilt & Updated Content -->
-                    <div class="m3-card feature-card tilt-card ripple-container">
-                        <div class="card-inner">
-                            <div class="feature-icon">✨</div>
-                            <h3>Expressive Design</h3>
-                            <p>A fresh UI blending the vibrant <em>BanG Dream!</em> aesthetic with Google's Material Design 3 Expressive update.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="m3-card feature-card tilt-card ripple-container">
-                        <div class="card-inner">
-                            <div class="feature-icon">🛡️</div>
-                            <h3>Advanced Spoofing</h3>
-                            <p>Play Integrity spoofing with custom pif.json & keybox. Per-app device spoofing for strict apps like Samsung AOSP.</p>
-                        </div>
-                    </div>
-
-                    <div class="m3-card feature-card tilt-card ripple-container">
-                        <div class="card-inner">
-                            <div class="feature-icon">🎨</div>
-                            <h3>AOD Wallpaper</h3>
-                            <p>Keep your aesthetics alive effortlessly with full wallpaper visibility on the Always-On Display.</p>
-                        </div>
-                    </div>
-
-                    <div class="m3-card feature-card tilt-card ripple-container">
-                        <div class="card-inner">
-                            <div class="feature-icon">⚡</div>
+            <div class="m3-carousel-wrapper m3-animate m3-fade-slide-up m3-delay-1">
+                <button class="m3-icon-button carousel-prev m-ripple" aria-label="Previous">&lt;</button>
+                <div class="m3-carousel features-carousel" id="featuresTrack">
+                    <div class="m3-card m3-feature-card">
+                        <div class="card-content">
                             <h3>Devshell Derivation</h3>
-                            <p>[For developers] Seamless devshell derivation for building the ROM efficiently on NixOS.</p>
+                            <p>[For developers] Devshell derivation for building the ROM on NixOS</p>
                         </div>
                     </div>
-
-                    <div class="m3-card feature-card tilt-card ripple-container">
-                        <div class="card-inner">
-                            <div class="feature-icon">📦</div>
-                            <h3>Lightweight GApps</h3>
-                            <p>A meticulously debloated, ultra-small GApps package perfectly optimized for Google-infused builds.</p>
+                    <div class="m3-card m3-feature-card">
+                        <div class="card-content">
+                            <h3>GApps Package</h3>
+                            <p>Small GApps package for GApps builds</p>
                         </div>
                     </div>
-
-                    <div class="m3-card feature-card tilt-card ripple-container">
-                        <div class="card-inner">
-                            <div class="feature-icon">🔒</div>
-                            <h3>Refined Face Unlock</h3>
-                            <p>Blazing fast face unlock integrated cleanly, removing the obtrusive face icon on the lock screen.</p>
+                    <div class="m3-card m3-feature-card">
+                        <div class="card-content">
+                            <h3>Clean Face Unlock</h3>
+                            <p>Face unlock without the ugly face icon on lock screen</p>
                         </div>
                     </div>
-
-                    <div class="m3-card feature-card tilt-card ripple-container">
-                        <div class="card-inner">
-                            <div class="feature-icon">💡</div>
-                            <h3>Smart Utilities</h3>
-                            <p>Granular flashlight level adjustments, pocket lock detection, and integrated Google Feed on Trebuchet.</p>
+                    <div class="m3-card m3-feature-card">
+                        <div class="card-content">
+                            <h3>Google Feed</h3>
+                            <p>Google Feed deeply integrated on Trebuchet</p>
                         </div>
                     </div>
-
+                    <div class="m3-card m3-feature-card">
+                        <div class="card-content">
+                            <h3>Advanced Spoofing</h3>
+                            <p>Spoofing for developer options, PIF, Tricky Store and per-app individual device spoofing</p>
+                        </div>
+                    </div>
+                    <div class="m3-card m3-feature-card">
+                        <div class="card-content">
+                            <h3>Flashlight Control</h3>
+                            <p>Precise flashlight level adjustment</p>
+                        </div>
+                    </div>
+                    <div class="m3-card m3-feature-card">
+                        <div class="card-content">
+                            <h3>Pocket Lock</h3>
+                            <p>Smart pocket lock prevention</p>
+                        </div>
+                    </div>
+                    <div class="m3-card m3-feature-card">
+                        <div class="card-content">
+                            <h3>AOD Wallpaper</h3>
+                            <p>Wallpaper on AOD (unless force disabled by device maintainer)</p>
+                        </div>
+                    </div>
+                    <div class="m3-card m3-feature-card">
+                        <div class="card-content">
+                            <h3>Lineage Base</h3>
+                            <p>All core Lineage features preserved seamlessly</p>
+                        </div>
+                    </div>
                 </div>
-                <button class="carousel-btn right ripple" id="btn-next">&gt;</button>
+                <button class="m3-icon-button carousel-next m-ripple" aria-label="Next">&gt;</button>
             </div>
         </section>
 
-        <!-- Screenshots Showcase -->
-        <section class="showcase" id="showcase">
-            <div class="showcase-sticky">
-                <h2 class="section-title showcase-title reveal">Fluidity in Motion</h2>
-                <div class="stack-container" id="screenshot-stack">
-                    <img src="assets/screenshots/screenshot1.jpg" alt="UI Screenshot" class="screenshot-layer" loading="lazy">
-                    <img src="assets/screenshots/screenshot2.jpg" alt="UI Screenshot" class="screenshot-layer" loading="lazy">
-                    <img src="assets/screenshots/screenshot3.jpg" alt="UI Screenshot" class="screenshot-layer" loading="lazy">
-                    <img src="assets/screenshots/screenshot4.jpg" alt="UI Screenshot" class="screenshot-layer" loading="lazy">
-                    <img src="assets/screenshots/screenshot5.jpg" alt="UI Screenshot" class="screenshot-layer" loading="lazy">
-                    <img src="assets/screenshots/screenshot6.jpg" alt="UI Screenshot" class="screenshot-layer" loading="lazy">
-                    <img src="assets/screenshots/screenshot7.jpg" alt="UI Screenshot" class="screenshot-layer" loading="lazy">
+        <!-- Screenshots Section -->
+        <section id="screenshots" class="m3-section">
+            <div class="section-header m3-animate m3-spring-up">
+                <h2 class="section-title">Screenshots</h2>
+            </div>
+            
+            <div class="m3-showcase-wrapper m3-animate m3-fade-slide-up m3-delay-1">
+                <button class="m3-icon-button showcase-prev m-ripple" aria-label="Previous">&lt;</button>
+                <div class="m3-showcase screenshots-carousel" id="screenshotsTrack">
+                    <!-- Images 1 to 10 -->
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot1.jpg" alt="Screenshot 1"></div>
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot2.jpg" alt="Screenshot 2"></div>
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot3.jpg" alt="Screenshot 3"></div>
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot4.jpg" alt="Screenshot 4"></div>
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot5.jpg" alt="Screenshot 5"></div>
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot6.jpg" alt="Screenshot 6"></div>
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot7.jpg" alt="Screenshot 7"></div>
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot8.jpg" alt="Screenshot 8"></div>
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot9.jpg" alt="Screenshot 9"></div>
+                    <div class="m3-showcase-item"><img src="assets/screenshots/screenshot10.jpg" alt="Screenshot 10"></div>
                 </div>
+                <button class="m3-icon-button showcase-next m-ripple" aria-label="Next">&gt;</button>
             </div>
         </section>
 
-        <!-- Supported Devices -->
-        <section class="devices" id="devices">
-            <div class="section-header reveal">
+        <!-- Supported Devices Section -->
+        <section id="devices" class="m3-section">
+            <div class="section-header m3-animate m3-spring-up">
                 <h2 class="section-title">Supported Devices</h2>
             </div>
-            <div class="device-grid">
-                <div class="m3-card device-card tilt-card reveal stagger-1">
-                    <div class="device-image-wrapper">
-                        <img src="assets/device/m34.jpg" alt="m34x" loading="lazy">
-                    </div>
+            <div class="m3-grid-3">
+                <div class="m3-card m3-device-card m3-animate m3-scale-up">
+                    <img src="assets/device/m34.jpg" alt="m34x">
                     <div class="device-info">
                         <h3>m34x</h3>
                         <span class="status-soon">Coming Soon</span>
                     </div>
                 </div>
-                <div class="m3-card device-card tilt-card reveal stagger-2">
-                    <div class="device-image-wrapper">
-                        <img src="assets/device/merlinx.jpg" alt="merlinx" loading="lazy">
-                    </div>
+                <div class="m3-card m3-device-card m3-animate m3-scale-up m3-delay-1">
+                    <img src="assets/device/merlinx.jpg" alt="merlinx">
                     <div class="device-info">
                         <h3>merlinx</h3>
                         <span class="status-soon">Coming Soon</span>
                     </div>
                 </div>
-                <div class="m3-card device-card tilt-card reveal stagger-3">
-                    <div class="device-image-wrapper">
-                        <img src="assets/device/lancelot.jpg" alt="lancelot" loading="lazy">
-                    </div>
+                <div class="m3-card m3-device-card m3-animate m3-scale-up m3-delay-2">
+                    <img src="assets/device/lancelot.jpg" alt="lancelot">
                     <div class="device-info">
                         <h3>lancelot</h3>
                         <span class="status-soon">Coming Soon</span>
@@ -183,21 +181,20 @@
             </div>
         </section>
 
-        <!-- Changelog Section -->
-        <section class="changelogs" id="changelogs">
-            <div class="section-header reveal">
-                <h2 class="section-title">Evolution</h2>
+        <!-- Changelogs Section -->
+        <section id="changelogs" class="m3-section">
+            <div class="section-header m3-animate m3-spring-up">
+                <h2 class="section-title">Changelogs</h2>
             </div>
-            <div class="timeline">
-                <div class="timeline-item reveal">
-                    <div class="timeline-dot pulse-animation"></div>
-                    <div class="m3-card timeline-content tilt-card">
+            <div class="m3-timeline">
+                <div class="m3-timeline-item m3-animate m3-slide-in-left">
+                    <div class="timeline-dot"></div>
+                    <div class="m3-card timeline-card">
                         <h3>Version 1.0</h3>
                         <ul>
-                            <li>Initial Release & Foundation</li>
-                            <li>Integrated MD3 Expressive styling</li>
-                            <li>Added Advanced Play Integrity Spoofing</li>
-                            <li>Merged BanG Dream! inspired color spaces</li>
+                            <li>Initial Release</li>
+                            <li>Device Bring-up</li>
+                            <li>Core Features Added</li>
                         </ul>
                     </div>
                 </div>
@@ -205,28 +202,25 @@
         </section>
 
         <!-- Credits Section -->
-        <section class="credits" id="credits">
-            <div class="section-header reveal">
-                <h2 class="section-title">The Masterminds</h2>
+        <section id="credits" class="m3-section">
+            <div class="section-header m3-animate m3-spring-up">
+                <h2 class="section-title">Credits</h2>
             </div>
-            <div class="credits-grid">
-                <div class="m3-card credit-card tilt-card reveal stagger-1"><p class="credit-name">Project Kasumi</p><p class="credit-role">The idea & driving force</p></div>
-                <div class="m3-card credit-card tilt-card reveal stagger-2"><p class="credit-name">LineageOS</p><p class="credit-role">Base Foundation</p></div>
-                <div class="m3-card credit-card tilt-card reveal stagger-3"><p class="credit-name">halogenOS</p><p class="credit-role">Nix devshell basis</p></div>
-                <div class="m3-card credit-card tilt-card reveal stagger-1"><p class="credit-name">DivestOS</p><p class="credit-role">Analytics nullification</p></div>
-                <div class="m3-card credit-card tilt-card reveal stagger-2"><p class="credit-name">Project Sakura</p><p class="credit-role">Design & features</p></div>
-                <div class="m3-card credit-card tilt-card reveal stagger-3"><p class="credit-name">Halcyon</p><p class="credit-role">Feature set</p></div>
-                <div class="m3-card credit-card tilt-card reveal stagger-1"><p class="credit-name">Clover Project</p><p class="credit-role">Features & Typography</p></div>
-                <div class="m3-card credit-card tilt-card reveal stagger-2"><p class="credit-name">crDroid & AxionOS</p><p class="credit-role">Fixes & improvements</p></div>
+            <div class="m3-grid-auto">
+                <!-- Dynamically generated via HTML for semantics -->
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>Project Kasumi Community</h3><p>The idea and the driving force</p></div></div>
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>LineageOS</h3><p>Base ROM</p></div></div>
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>halogenOS</h3><p>Base Nix devshell</p></div></div>
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>DivestOS</h3><p>Patches to nuke analytics</p></div></div>
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>Project Sakura</h3><p>Some design ideas and specific features</p></div></div>
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>Halcyon</h3><p>Specific features</p></div></div>
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>The Clover Project</h3><p>Specific features and fonts</p></div></div>
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>crDroid</h3><p>Specific fixes and improvements</p></div></div>
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>AxionOS</h3><p>Specific fixes and improvements</p></div></div>
+                <div class="m3-card m3-credit-card m3-animate m3-fade-slide-up"><div class="credit-content"><h3>LineageOS-Ext</h3><p>Specific fixes and improvements</p></div></div>
             </div>
         </section>
     </main>
-
-    <footer class="m3-footer">
-        <h2 class="footer-title floating">Project Circle</h2>
-        <p class="footer-subtitle">Crafted with hand-picked features and expressive design.</p>
-        <p class="footer-love">Made with 💜 by Project Circle Team</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
