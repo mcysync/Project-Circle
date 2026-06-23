@@ -50,12 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 4. Scroll Animations (Intersection Observer)
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15
-    };
-
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -67,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.m3-animate').forEach(el => observer.observe(el));
 
-    // 5. Advanced Material Carousel Logic (Drag & Scroll Snap)
+    // 5. Extreme Material Carousel Motion Logic
     function setupCarousel(trackId, prevBtnClass, nextBtnClass, isCenterMode = false) {
         const track = document.getElementById(trackId);
         if (!track) return;
@@ -76,16 +71,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextBtn = track.parentElement.querySelector(nextBtnClass);
         const items = Array.from(track.children);
 
-        // Arrow Navigation
-        if(prevBtn) prevBtn.addEventListener('click', () => scrollTrack(-1));
-        if(nextBtn) nextBtn.addEventListener('click', () => scrollTrack(1));
+        function animateInteraction(btn, direction) {
+            // Spring animation on the button itself
+            btn.classList.remove('btn-press-anim');
+            void btn.offsetWidth; // trigger reflow
+            btn.classList.add('btn-press-anim');
 
-        function scrollTrack(direction) {
-            const itemWidth = items[0].getBoundingClientRect().width + 24; // width + gap
-            track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+            // Apply a Material Container Transform squish effect to the items before shifting
+            track.classList.add('track-shifting');
+            
+            setTimeout(() => {
+                const itemWidth = items[0].getBoundingClientRect().width + 24;
+                track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+                
+                // Remove shift class as they arrive at destination
+                setTimeout(() => {
+                    track.classList.remove('track-shifting');
+                }, 400); 
+            }, 100); // slight delay for the visual squish to process
         }
 
-        // Center Mode Scaling (for Screenshots)
+        if(prevBtn) prevBtn.addEventListener('click', () => animateInteraction(prevBtn, -1));
+        if(nextBtn) nextBtn.addEventListener('click', () => animateInteraction(nextBtn, 1));
+
+        // Center Mode Scaling (specifically for Screenshots)
         if (isCenterMode) {
             const updateActiveItem = () => {
                 const trackCenter = track.getBoundingClientRect().left + (track.clientWidth / 2);
@@ -106,11 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (closestItem) closestItem.classList.add('active');
             };
 
-            track.addEventListener('scroll', () => {
-                requestAnimationFrame(updateActiveItem);
-            });
-            
-            // Initialize first item
+            track.addEventListener('scroll', () => requestAnimationFrame(updateActiveItem));
             setTimeout(updateActiveItem, 100);
             window.addEventListener('resize', updateActiveItem);
         }
@@ -122,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         track.addEventListener('mousedown', (e) => {
             isDown = true;
-            track.style.scrollBehavior = 'auto'; // Disable smooth snap during drag
+            track.style.scrollBehavior = 'auto';
             track.style.cursor = 'grabbing';
             startX = e.pageX - track.offsetLeft;
             scrollLeft = track.scrollLeft;
@@ -144,12 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - track.offsetLeft;
-            const walk = (x - startX) * 2; // Scroll speed
+            const walk = (x - startX) * 2;
             track.scrollLeft = scrollLeft - walk;
         });
     }
 
-    // Initialize Carousels
     setupCarousel('featuresTrack', '.carousel-prev', '.carousel-next', false);
     setupCarousel('screenshotsTrack', '.showcase-prev', '.showcase-next', true);
 
