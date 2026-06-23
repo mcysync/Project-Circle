@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Circle | Premium Custom ROM</title>
+    <!-- Site Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -11,6 +14,7 @@
     
     <!-- Grand Launch Sequence Loader -->
     <div id="loader" class="m3-loader">
+        <img src="assets/logo.svg" alt="Project Circle Logo" class="loader-svg">
         <h1 class="loader-logo">
             <span class="text-white">Project</span><span class="text-primary">Circle</span>
         </h1>
@@ -29,6 +33,7 @@
     <header id="navbar" class="m3-app-bar">
         <div class="nav-container">
             <a href="#" class="nav-logo m-ripple">
+                <img src="assets/logo.svg" alt="Logo" class="nav-svg-logo">
                 <span class="text-white">Project</span><span class="text-primary">Circle</span>
             </a>
             <nav class="nav-links">
@@ -44,18 +49,29 @@
         <!-- Hero Section -->
         <section id="hero" class="m3-section hero-section">
             <div class="hero-glow"></div>
-            <div class="hero-content">
-                <h1 class="hero-title m3-intro-anim">
-                    <span class="text-white">Project</span>
-                    <span class="text-primary">Circle</span>
-                </h1>
-                <p class="hero-subtitle m3-intro-anim m3-delay-1">
-                    LineageOS based Lightweight Fine Crafted OS
-                </p>
-                <div class="hero-actions m3-intro-anim m3-delay-2">
-                    <a href="#about" class="m3-button m3-button-filled m-ripple breathing">
-                        Explore
-                    </a>
+            <div class="hero-grid">
+                <!-- Left: Typography -->
+                <div class="hero-content">
+                    <h1 class="hero-title m3-intro-anim">
+                        <span class="text-white">Project</span><br>
+                        <span class="text-primary">Circle</span>
+                    </h1>
+                    <p class="hero-subtitle m3-intro-anim m3-delay-1">
+                        LineageOS based Lightweight Fine Crafted OS
+                    </p>
+                    <div class="hero-actions m3-intro-anim m3-delay-2">
+                        <a href="#about" class="m3-button m3-button-filled m-ripple breathing">
+                            Explore
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Right: Premium Curved Thumbnail -->
+                <div class="hero-visual m3-intro-anim m3-delay-3">
+                    <div class="hero-thumbnail-wrapper">
+                        <div class="thumbnail-glow"></div>
+                        <img src="assets/thumbnail/1.jpg" alt="Project Circle Thumbnail" class="hero-thumbnail">
+                    </div>
                 </div>
             </div>
         </section>
@@ -103,7 +119,7 @@
             </div>
         </section>
 
-        <!-- Screenshots Section (Portrait Fixed & Centered) -->
+        <!-- Screenshots Section -->
         <section id="screenshots" class="m3-section">
             <div class="section-header m3-animate m3-spring-up">
                 <h2 class="section-title">Screenshots</h2>
@@ -179,7 +195,7 @@
             </div>
         </section>
 
-        <!-- Full Credits Section -->
+        <!-- Credits Section -->
         <section id="credits" class="m3-section">
             <div class="section-header m3-animate m3-spring-up">
                 <h2 class="section-title">Credits</h2>
@@ -198,6 +214,14 @@
             </div>
         </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="m3-footer">
+        <div class="footer-content m3-animate m3-fade-slide-up">
+            <img src="assets/logo.svg" alt="Project Circle Logo" class="footer-logo">
+            <p>&copy; Project Circle 2k26 Rights Reserved</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

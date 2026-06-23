@@ -5,11 +5,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // 1. Premium Grand Launch Sequence
-    // Waits slightly, then triggers the body class to fade loader and pop hero content
     setTimeout(() => {
         document.body.classList.remove('loading');
         document.body.classList.add('loaded');
-    }, 1500); // 1.5 seconds gives the pulse and letter-spacing time to shine
+    }, 1600); // Wait for the visual pulse, then explode into the site
 
     // 2. Ripple Effect Logic
     const rippleElements = document.querySelectorAll('.m-ripple');
@@ -68,26 +67,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const track = document.getElementById(trackId);
         if (!track) return;
 
-        // The buttons are placed relative to the wrapper, so we query the wrapper
         const wrapper = track.closest('.m3-carousel-wrapper, .m3-showcase-wrapper');
         const prevBtn = wrapper.querySelector(prevBtnClass);
         const nextBtn = wrapper.querySelector(nextBtnClass);
         const items = Array.from(track.children);
 
         function animateInteraction(btn, direction) {
-            // Spring animation on the button itself
             btn.classList.remove('btn-press-anim');
-            void btn.offsetWidth; // force DOM reflow to restart animation
+            void btn.offsetWidth; // force DOM reflow
             btn.classList.add('btn-press-anim');
 
-            // Apply a Material Container Transform squish effect to the items before shifting
             track.classList.add('track-shifting');
             
             setTimeout(() => {
-                const itemWidth = items[0].getBoundingClientRect().width + 24; // Width + Gap
+                const itemWidth = items[0].getBoundingClientRect().width + 24; 
                 track.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
                 
-                // Remove shift class as they arrive at destination
                 setTimeout(() => {
                     track.classList.remove('track-shifting');
                 }, 400); 
@@ -119,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             track.addEventListener('scroll', () => requestAnimationFrame(updateActiveItem));
-            setTimeout(updateActiveItem, 200); // Initial check
+            setTimeout(updateActiveItem, 200);
             window.addEventListener('resize', updateActiveItem);
         }
 
@@ -130,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         track.addEventListener('mousedown', (e) => {
             isDown = true;
-            track.style.scrollBehavior = 'auto'; // Instant drag feeling
+            track.style.scrollBehavior = 'auto'; 
             track.style.cursor = 'grabbing';
             startX = e.pageX - track.offsetLeft;
             scrollLeft = track.scrollLeft;
@@ -138,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         track.addEventListener('mouseleave', () => {
             isDown = false;
-            track.style.scrollBehavior = 'smooth'; // Restore snap
+            track.style.scrollBehavior = 'smooth'; 
             track.style.cursor = '';
         });
         
@@ -152,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - track.offsetLeft;
-            const walk = (x - startX) * 2.5; // Drag speed multiplier
+            const walk = (x - startX) * 2.5; 
             track.scrollLeft = scrollLeft - walk;
         });
     }
