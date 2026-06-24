@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MATERIAL 3 EXPRESSIVE - PROJECT CIRCLE LOGIC
+   MATERIAL 3 EXPRESSIVE - PROJECT CIRCLE mcysync
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.m3-animate').forEach(el => observer.observe(el));
 
-    // 5. Material Carousel Logic (Restored Spring & Shift Animations)
+    // 5. Material Carousel Logic
     function setupCarousel(trackId, prevBtnClass, nextBtnClass, isCenterMode = false) {
         const track = document.getElementById(trackId);
         if (!track) return;
@@ -97,12 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const items = Array.from(track.children);
 
         function handleScrollAction(btn, direction) {
-            // Apply Spring Button Click Anim
             btn.classList.remove('btn-press-anim');
-            void btn.offsetWidth; // Force Reflow
+            void btn.offsetWidth; 
             btn.classList.add('btn-press-anim');
 
-            // Apply Container Squish/Shift Anim
             track.classList.add('track-shifting');
             
             setTimeout(() => {
@@ -112,14 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 setTimeout(() => {
                     track.classList.remove('track-shifting');
-                }, 400); // Remove shift class when scroll settles
+                }, 400); 
             }, 100);
         }
 
         if(prevBtn) prevBtn.addEventListener('click', () => handleScrollAction(prevBtn, -1));
         if(nextBtn) nextBtn.addEventListener('click', () => handleScrollAction(nextBtn, 1));
 
-        // Center Mode Active Scaling 
         if (isCenterMode) {
             const updateActiveItem = () => {
                 const trackCenter = track.getBoundingClientRect().left + (track.clientWidth / 2);
@@ -146,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.addEventListener('resize', updateActiveItem);
         }
 
-        // Mouse Drag to Scroll 
         let isDown = false;
         let startX;
         let scrollLeft;
