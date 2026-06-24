@@ -68,8 +68,8 @@ main, footer { position: relative; z-index: 10; }
 .loader-svg { width: 80px; height: 80px; z-index: 2; animation: loaderReveal 1.2s var(--md-sys-motion-easing-emphasized) forwards; }
 .loader-logo { 
     font-family: var(--md-sys-typescale-font); 
-    font-size: clamp(2.5rem, 8vw, 5rem); /* FLUID TYPOGRAPHY FIX */
-    text-align: center; /* ALIGNMENT FIX */
+    font-size: clamp(2.5rem, 8vw, 5rem); 
+    text-align: center; 
     z-index: 2; 
     animation: loaderReveal 1.5s var(--md-sys-motion-easing-emphasized) forwards; 
 }
@@ -165,16 +165,15 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 .m3-showcase-item.active { transform: scale(1.05); filter: blur(0) brightness(1); box-shadow: 0 32px 80px rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.15); }
 
 /* ==========================================================================
-   DEVICES (100% BULLETPROOF IMAGE RENDERING FIX)
+   DEVICES (FIXED Z-INDEX BUG)
    ========================================================================== */
 .m3-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
 
 .m3-device-card { 
-    /* Core Fixes: Switched to flex to guarantee containment and stacking order */
     position: relative;
     display: flex; 
     flex-direction: column;
-    justify-content: flex-end; /* Pushes text to the bottom naturally */
+    justify-content: flex-end; 
     overflow: hidden; 
     border-radius: var(--md-sys-shape-corner-extra-large); 
     border: 1px solid rgba(255,255,255,0.05); 
@@ -182,22 +181,23 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
     background: var(--md-sys-color-surface-container-high); 
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     transition: transform 400ms var(--md-sys-motion-easing-emphasized), box-shadow 400ms;
-    z-index: 1; /* Creates a clean stacking context */
+    z-index: 1; 
 }
 
 .m3-device-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 24px 64px rgba(0,0,0,0.8); }
 
 .m3-device-card img { 
     position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; /* FIX: Shows the whole image without zooming/cropping */
+    top: 32px; /* Better way to add padding dynamically */
+    left: 32px;
+    width: calc(100% - 64px); 
+    height: calc(100% - 64px); 
+    object-fit: contain; 
     object-position: center; 
-    padding: 32px; /* Adds breathing room around the devices */
     transition: transform 800ms var(--md-sys-motion-easing-emphasized); 
-    z-index: -1; /* Guarantees the image sits behind the text and gradient */
+    
+    /* FIX: Changed this from -1 to 1 so the image renders ABOVE the card's background color */
+    z-index: 1; 
 }
 
 .m3-device-card:hover img { transform: scale(1.1); }
@@ -207,7 +207,9 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
     width: 100%;
     padding: 60px 32px 32px; 
     background: linear-gradient(to top, rgba(10,7,8,1) 10%, transparent); 
-    z-index: 2; /* Forces text to sit perfectly on top */
+    
+    /* FIX: Stays at 2 so the text overlaps the image perfectly */
+    z-index: 2; 
 }
 
 .device-info h3 { font-size: 2.5rem; font-family: var(--md-sys-typescale-font); text-shadow: 0 4px 12px rgba(0,0,0,0.9); margin-bottom: 4px; }
