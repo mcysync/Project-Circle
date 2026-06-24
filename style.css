@@ -45,17 +45,10 @@ body { font-family: var(--md-sys-typescale-body-font); position: relative; }
 /* ==========================================================================
    BACKGROUND SYSTEM 
    ========================================================================== */
-.video-background { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100vh; background-color: #0A0708; }
+.video-background { position: fixed; inset: 0; z-index: -999; width: 100%; height: 100vh; background-color: #0A0708; }
 .bg-desktop, .bg-mobile { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-
-/* Hide mobile background by default on desktop */
 .bg-mobile { display: none; }
-
-/* Media Query: Toggle to mobile background image on small screens */
-@media (max-width: 768px) { 
-    .bg-desktop { display: none !important; } 
-    .bg-mobile { display: block !important; } 
-}
+@media (max-width: 768px) { .bg-desktop { display: none; } .bg-mobile { display: block; } }
 
 .m3-dynamic-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 7, 8, 0.4) 0%, rgba(10, 7, 8, 1) 100%); z-index: 1; }
 .m3-surface-tint { position: absolute; inset: 0; background: var(--md-sys-color-surface-tint); mix-blend-mode: multiply; z-index: 2; }
@@ -68,8 +61,8 @@ main, footer { position: relative; z-index: 10; }
 .loader-svg { width: 80px; height: 80px; z-index: 2; animation: loaderReveal 1.2s var(--md-sys-motion-easing-emphasized) forwards; }
 .loader-logo { 
     font-family: var(--md-sys-typescale-font); 
-    font-size: clamp(2.5rem, 8vw, 5rem); /* FLUID TYPOGRAPHY FIX */
-    text-align: center; /* ALIGNMENT FIX */
+    font-size: clamp(2.5rem, 8vw, 5rem); /* MOBILE FIX */
+    text-align: center;
     z-index: 2; 
     animation: loaderReveal 1.5s var(--md-sys-motion-easing-emphasized) forwards; 
 }
@@ -137,7 +130,7 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 .m3-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 24px 64px rgba(0,0,0,0.7); background: var(--md-sys-color-surface-container-high); }
 
 /* ==========================================================================
-   CAROUSELS
+   CAROUSELS (RESTORED BUTTON & SQUISH ANIMATIONS)
    ========================================================================== */
 .m3-carousel-wrapper, .m3-showcase-wrapper { position: relative; display: flex; align-items: center; width: 100%; }
 .carousel-mask { width: 100%; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); }
@@ -150,71 +143,66 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 .carousel-prev, .showcase-prev { left: -32px; }
 .carousel-next, .showcase-next { right: -32px; }
 
+/* Restored Spring Animation on Button Click */
 .btn-press-anim { animation: springPress 500ms var(--md-sys-motion-easing-emphasized) forwards; }
 @keyframes springPress { 0% { transform: scale(1.15); } 40% { transform: scale(0.8); } 100% { transform: scale(1.15); } }
 
+/* Restored Squish/Shift Animation on Carousel Items */
 .track-shifting .m3-feature-card, .track-shifting .m3-showcase-item { transform: scale(0.92) !important; filter: blur(2px); transition: transform 300ms var(--md-sys-motion-easing-emphasized), filter 300ms; }
 
 .m3-feature-card { width: 350px !important; flex: 0 0 350px !important; scroll-snap-align: center; height: 260px; display: flex; flex-direction: column; justify-content: center; transition: transform 400ms var(--md-sys-motion-easing-emphasized); }
 .m3-feature-card h3 { font-size: 1.5rem; margin-bottom: 12px; font-family: var(--md-sys-typescale-font); color: var(--md-sys-color-on-secondary-container); }
 .m3-feature-card p { color: rgba(255,255,255,0.7); line-height: 1.6; font-size: 1.05rem; }
 
+/* Screenshots */
 .m3-showcase { padding: 48px max(24px, calc(50vw - 160px - 8vw)); } 
 .m3-showcase-item { width: 320px !important; flex: 0 0 320px !important; aspect-ratio: 9/19.5; scroll-snap-align: center; border-radius: 32px; overflow: hidden; transform: scale(0.85); filter: blur(6px) brightness(0.4); box-shadow: 0 8px 32px rgba(0,0,0,0.6); transition: transform 600ms var(--md-sys-motion-easing-emphasized), filter 600ms var(--md-sys-motion-easing-emphasized), box-shadow 600ms; }
 .m3-showcase-item img { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .m3-showcase-item.active { transform: scale(1.05); filter: blur(0) brightness(1); box-shadow: 0 32px 80px rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.15); }
 
 /* ==========================================================================
-   DEVICES (100% BULLETPROOF IMAGE RENDERING FIX)
+   DEVICES (IMAGE RENDERING FIX - NEVER FULL FRAME)
    ========================================================================== */
 .m3-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-
 .m3-device-card { 
-    /* Core Fixes: Switched to flex to guarantee containment and stacking order */
-    position: relative;
-    display: flex; 
-    flex-direction: column;
-    justify-content: flex-end; /* Pushes text to the bottom naturally */
+    padding: 0; 
     overflow: hidden; 
+    position: relative; 
+    display: block; 
     border-radius: var(--md-sys-shape-corner-extra-large); 
     border: 1px solid rgba(255,255,255,0.05); 
     height: 500px; 
     background: var(--md-sys-color-surface-container-high); 
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     transition: transform 400ms var(--md-sys-motion-easing-emphasized), box-shadow 400ms;
-    z-index: 1; /* Creates a clean stacking context */
 }
-
 .m3-device-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 24px 64px rgba(0,0,0,0.8); }
 
+/* GUARANTEED FIX: Will shrink to fit entirely within bounds and add heavy padding */
 .m3-device-card img { 
     position: absolute; 
-    top: 0;
-    left: 0;
+    inset: 0; 
     width: 100%; 
     height: 100%; 
-    object-fit: contain; /* FIX: Shows the whole image without zooming/cropping */
+    object-fit: contain; /* Prevents filling the box entirely */
     object-position: center; 
-    padding: 32px; /* Adds breathing room around the devices */
+    padding: 48px; /* Forces heavy space around edges */
     transition: transform 800ms var(--md-sys-motion-easing-emphasized); 
-    z-index: -1; /* Guarantees the image sits behind the text and gradient */
+    z-index: 1; 
 }
-
 .m3-device-card:hover img { transform: scale(1.1); }
 
+/* Ensure text stays above the image */
 .device-info { 
-    position: relative; 
-    width: 100%;
+    position: absolute; 
+    bottom: 0; left: 0; right: 0; 
     padding: 60px 32px 32px; 
     background: linear-gradient(to top, rgba(10,7,8,1) 10%, transparent); 
-    z-index: 2; /* Forces text to sit perfectly on top */
+    z-index: 2; 
 }
-
 .device-info h3 { font-size: 2.5rem; font-family: var(--md-sys-typescale-font); text-shadow: 0 4px 12px rgba(0,0,0,0.9); margin-bottom: 4px; }
 
-/* ==========================================================================
-   TIMELINE & CREDITS
-   ========================================================================== */
+/* Timeline & Credits */
 .m3-timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 48px; }
 .m3-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--md-sys-color-surface-variant); border-radius: 4px; }
 .m3-timeline-item { position: relative; margin-bottom: 48px; }
@@ -228,18 +216,14 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 .m3-credit-card h3 { font-size: 1.35rem; margin-bottom: 8px; font-family: var(--md-sys-typescale-font); color: var(--md-sys-color-on-secondary-container); }
 .m3-credit-card p { font-size: 1rem; color: rgba(255,255,255,0.6); }
 
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
+/* Footer */
 .m3-footer { padding: 48px 8vw; background: rgba(10, 7, 8, 0.95); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 10; }
 .footer-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
 .footer-logo { width: 48px; height: 48px; opacity: 0.7; transition: opacity 0.3s; }
 .footer-logo:hover { opacity: 1; }
 .footer-content p { color: rgba(255,255,255,0.5); font-size: 1.05rem; letter-spacing: 0.5px; font-weight: 500; }
 
-/* ==========================================================================
-   ANIMATIONS & EFFECTS
-   ========================================================================== */
+/* Scroll Animations */
 .m3-animate { opacity: 0; will-change: transform, opacity; }
 .m3-animate.in-view { animation-duration: 1000ms; animation-timing-function: var(--md-sys-motion-easing-emphasized); animation-fill-mode: forwards; }
 .m3-spring-up.in-view { animation-name: springUp; }
@@ -254,6 +238,7 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 @keyframes scaleUp { 0% { transform: scale(0.85) translateY(40px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
 @keyframes slideInLeft { 0% { transform: translateX(-100px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
 
+/* Ripples */
 .m-ripple { position: relative; overflow: hidden; }
 .ripple-span { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.4); transform: scale(0); animation: rippleAnim 600ms linear; pointer-events: none; }
 @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
