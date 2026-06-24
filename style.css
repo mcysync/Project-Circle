@@ -174,7 +174,7 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
     box-shadow: 0 12px 32px rgba(255, 123, 155, 0.3) !important; 
 }
 
-/* FIX: Features Arrows moved completely ASIDE so they don't block cards */
+/* Features Arrows moved completely ASIDE so they don't block cards */
 .m3-carousel-wrapper .carousel-prev { left: -48px !important; }
 .m3-carousel-wrapper .carousel-next { right: -48px !important; }
 
@@ -327,6 +327,7 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 /* ==========================================================================
    MOBILE OPTIMIZATIONS (ARROWS HIDDEN ONLY ON TOUCH DEVICES)
    ========================================================================== */
+/* HIDE BUTTONS ON TABLETS & MOBILE (Because users swipe natively here) */
 @media (max-width: 1024px) {
     .m3-icon-button { display: none !important; }
     
