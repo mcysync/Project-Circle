@@ -70,6 +70,7 @@ main, footer { position: relative; z-index: 10; }
 @keyframes pulseRipple { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(6); opacity: 0; } }
 body.loaded #loader { opacity: 0; transform: scale(1.1); pointer-events: none; }
 
+/* SMALL NAV BAR STYLES */
 .m3-app-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 12px 48px; transition: all 400ms var(--md-sys-motion-easing-emphasized); }
 .m3-app-bar.scrolled { padding: 8px 48px; background: rgba(21, 15, 17, 0.85); backdrop-filter: blur(24px); box-shadow: 0 4px 32px rgba(0,0,0,0.8); border-bottom: 1px solid rgba(255,255,255,0.05); }
 .nav-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
@@ -127,7 +128,7 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 .m3-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 24px 64px rgba(0,0,0,0.7); background: var(--md-sys-color-surface-container-high); }
 
 /* ==========================================================================
-   CAROUSELS (FIXED EDGE MASK & SHADOW CLIPPING)
+   CAROUSELS & ARROW BUTTONS
    ========================================================================== */
 .m3-carousel-wrapper, .m3-showcase-wrapper { 
     position: relative; 
@@ -148,63 +149,61 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 .m3-carousel, .m3-showcase { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 24px; padding: 24px 0; width: 100%; -webkit-overflow-scrolling: touch; }
 .m3-carousel::-webkit-scrollbar, .m3-showcase::-webkit-scrollbar { display: none; }
 
-/* FIX: Base button styling with a smooth "transition: all" for perfect hover-outs */
-.m3-icon-button { 
-    display: flex !important; 
-    align-items: center !important;
-    justify-content: center !important;
-    background: var(--md-sys-color-surface-variant) !important; 
-    color: #FFF !important; 
-    border: 1px solid rgba(255,255,255,0.1) !important; 
-    border-radius: 50% !important; 
-    font-weight: bold !important;
-    cursor: pointer !important; 
-    position: absolute !important; 
-    top: 50% !important; 
-    transform: translateY(-50%) scale(1) !important; 
-    z-index: 9999 !important; 
-    /* Ensures animation smoothly returns when mouse leaves */
-    transition: all 400ms var(--md-sys-motion-easing-emphasized) !important; 
-    visibility: visible !important;
-    opacity: 1 !important;
+/* BASE ARROW BUTTON STYLES */
+button.m3-icon-button { 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    background: var(--md-sys-color-surface-variant); 
+    color: #FFF; 
+    border: 1px solid rgba(255,255,255,0.1); 
+    border-radius: 50%; 
+    font-weight: bold;
+    cursor: pointer; 
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%) scale(1); 
+    z-index: 1000; 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.8); 
+    transition: transform 300ms cubic-bezier(0.2, 0, 0, 1), background 300ms, box-shadow 300ms;
 }
 
-.m3-icon-button:hover { 
-    background: var(--md-sys-color-secondary-container) !important; 
-    transform: translateY(-50%) scale(1.15) !important; 
+button.m3-icon-button:hover { 
+    background: var(--md-sys-color-secondary-container); 
+    transform: translateY(-50%) scale(1.15); 
+    box-shadow: 0 12px 32px rgba(0,0,0,0.9); 
 }
 
-/* FIX: FEATURES CAROUSEL - Smaller and pushed further away from cards */
-.carousel-prev, .carousel-next {
-    width: 48px !important; 
-    height: 48px !important; 
-    font-size: 1.25rem !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.6) !important; 
-}
-.carousel-prev:hover, .carousel-next:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.8) !important; }
-.carousel-prev { left: -56px !important; }
-.carousel-next { right: -56px !important; }
-
-/* FIX: SCREENSHOTS SHOWCASE - Original size and position */
-.showcase-prev, .showcase-next {
-    width: 64px !important; 
-    height: 64px !important; 
-    font-size: 1.75rem !important;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.8) !important; 
-}
-.showcase-prev:hover, .showcase-next:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.9) !important; }
-.showcase-prev { left: -24px !important; }
-.showcase-next { right: -24px !important; }
-
-/* FIX: Removed the word "forwards" so it yields control back to CSS transitions when the click is done */
-.btn-press-anim { animation: springPress 400ms var(--md-sys-motion-easing-emphasized) !important; }
-
-@keyframes springPress { 
-    0% { transform: translateY(-50%) scale(1.15); } 
-    40% { transform: translateY(-50%) scale(0.85); } 
-    100% { transform: translateY(-50%) scale(1.15); } 
+/* FIX: Pure CSS active state fixes the hover freeze completely */
+button.m3-icon-button:active {
+    transform: translateY(-50%) scale(0.85) !important;
+    transition: transform 150ms ease;
 }
 
+/* FIX: This completely overrides and turns off the buggy JS animation */
+.btn-press-anim { animation: none !important; }
+
+/* FEATURES ARROWS (SMALLER) */
+.m3-carousel-wrapper button.m3-icon-button {
+    width: 48px; 
+    height: 48px; 
+    font-size: 1.25rem;
+}
+/* Positives strictly keep them on the screen! */
+.m3-carousel-wrapper button.carousel-prev { left: 16px; }
+.m3-carousel-wrapper button.carousel-next { right: 16px; }
+
+/* SCREENSHOTS ARROWS (LARGER) */
+.m3-showcase-wrapper button.m3-icon-button {
+    width: 64px; 
+    height: 64px; 
+    font-size: 1.75rem;
+}
+.m3-showcase-wrapper button.showcase-prev { left: 16px; }
+.m3-showcase-wrapper button.showcase-next { right: 16px; }
+
+
+/* CAROUSEL CARDS */
 .track-shifting .m3-feature-card, .track-shifting .m3-showcase-item { transform: scale(0.92) !important; filter: blur(2px); transition: transform 300ms var(--md-sys-motion-easing-emphasized), filter 300ms; }
 
 .m3-feature-card { 
