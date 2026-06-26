@@ -142,8 +142,11 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 .m3-carousel, .m3-showcase { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 24px; padding: 24px 0; width: 100%; -webkit-overflow-scrolling: touch; }
 .m3-carousel::-webkit-scrollbar, .m3-showcase::-webkit-scrollbar { display: none; }
 
-/* FIX: Ensure buttons stay perfectly centered vertically and don't overwrite on hover/click */
+/* FIX: Ensure buttons stay perfectly centered vertically, display flex for icons, and fixed off-screen positioning */
 .m3-icon-button { 
+    display: flex; /* Added to perfectly center your icons inside the button */
+    align-items: center;
+    justify-content: center;
     background: var(--md-sys-color-surface-variant); 
     color: #FFF; 
     border: none; 
@@ -153,24 +156,24 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
     font-size: 1.75rem; 
     cursor: pointer; 
     position: absolute; 
-    top: 50%; /* Re-anchor to exact middle */
-    transform: translateY(-50%); /* Base anchor transform */
-    z-index: 20; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    z-index: 100; /* Bumped up so nothing overlays it */
     box-shadow: 0 8px 24px rgba(0,0,0,0.6); 
     transition: transform 300ms var(--md-sys-motion-easing-emphasized), background 300ms, box-shadow 300ms; 
 }
 .m3-icon-button:hover { 
     background: var(--md-sys-color-secondary-container); 
-    /* Chain transforms together so it doesn't snap to top */
     transform: translateY(-50%) scale(1.15); 
     box-shadow: 0 12px 32px rgba(0,0,0,0.8); 
 }
-.carousel-prev, .showcase-prev { left: -32px; }
-.carousel-next, .showcase-next { right: -32px; }
+
+/* FIX: Changed from -32px to 24px. The old negative values were hiding them outside the viewport */
+.carousel-prev, .showcase-prev { left: 24px; }
+.carousel-next, .showcase-next { right: 24px; }
 
 .btn-press-anim { animation: springPress 500ms var(--md-sys-motion-easing-emphasized) forwards; }
 
-/* FIX: Keep the translateY chaining in the keyframes too */
 @keyframes springPress { 
     0% { transform: translateY(-50%) scale(1.15); } 
     40% { transform: translateY(-50%) scale(0.8); } 
