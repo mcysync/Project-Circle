@@ -70,14 +70,15 @@ main, footer { position: relative; z-index: 10; }
 @keyframes pulseRipple { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(6); opacity: 0; } }
 body.loaded #loader { opacity: 0; transform: scale(1.1); pointer-events: none; }
 
-.m3-app-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 24px 48px; transition: all 400ms var(--md-sys-motion-easing-emphasized); }
-.m3-app-bar.scrolled { padding: 16px 48px; background: rgba(21, 15, 17, 0.85); backdrop-filter: blur(24px); box-shadow: 0 4px 32px rgba(0,0,0,0.8); border-bottom: 1px solid rgba(255,255,255,0.05); }
+/* FIX: Smaller Navigation Bar styling for PC */
+.m3-app-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 12px 48px; transition: all 400ms var(--md-sys-motion-easing-emphasized); }
+.m3-app-bar.scrolled { padding: 8px 48px; background: rgba(21, 15, 17, 0.85); backdrop-filter: blur(24px); box-shadow: 0 4px 32px rgba(0,0,0,0.8); border-bottom: 1px solid rgba(255,255,255,0.05); }
 .nav-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-.nav-logo { display: flex; align-items: center; gap: 12px; font-family: var(--md-sys-typescale-font); font-size: 1.75rem; font-weight: 700; text-decoration: none; border-radius: var(--md-sys-shape-corner-full); padding: 6px 16px 6px 6px; }
-.nav-svg-logo { width: 32px; height: 32px; object-fit: contain; }
+.nav-logo { display: flex; align-items: center; gap: 10px; font-family: var(--md-sys-typescale-font); font-size: 1.4rem; font-weight: 700; text-decoration: none; border-radius: var(--md-sys-shape-corner-full); padding: 4px 12px 4px 4px; }
+.nav-svg-logo { width: 26px; height: 26px; object-fit: contain; }
 
-.nav-links { display: flex; gap: 8px; }
-.nav-link { color: #FFF; text-decoration: none; font-size: 1.1rem; padding: 12px 24px; border-radius: var(--md-sys-shape-corner-full); transition: background 0.2s; font-weight: 500; }
+.nav-links { display: flex; gap: 4px; }
+.nav-link { color: #FFF; text-decoration: none; font-size: 0.95rem; padding: 8px 18px; border-radius: var(--md-sys-shape-corner-full); transition: background 0.2s; font-weight: 500; }
 .nav-link:hover { background: rgba(255,255,255,0.1); }
 
 .mobile-menu-btn { display: none; background: transparent; border: none; cursor: pointer; padding: 8px; border-radius: 50%; }
@@ -129,13 +130,11 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 /* ==========================================================================
    CAROUSELS (FIXED EDGE MASK & SHADOW CLIPPING)
    ========================================================================== */
-
-/* FIX: Changed from display: flex to display: block to prevent carousel blowing out the page width */
 .m3-carousel-wrapper, .m3-showcase-wrapper { 
     position: relative; 
     display: block; 
     width: 100%; 
-    max-width: 100%; /* Strict constraint so it stays inside screen */
+    max-width: 100%; 
     margin: 0 auto;
 }
 
@@ -150,7 +149,6 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 .m3-carousel, .m3-showcase { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 24px; padding: 24px 0; width: 100%; -webkit-overflow-scrolling: touch; }
 .m3-carousel::-webkit-scrollbar, .m3-showcase::-webkit-scrollbar { display: none; }
 
-/* FIX: Absolute positioning with !important to completely force them to exist and stay on top */
 .m3-icon-button { 
     display: flex !important; 
     align-items: center !important;
@@ -167,7 +165,7 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
     position: absolute !important; 
     top: 50% !important; 
     transform: translateY(-50%) !important; 
-    z-index: 9999 !important; /* Forces top layer */
+    z-index: 9999 !important; 
     box-shadow: 0 8px 24px rgba(0,0,0,0.8) !important; 
     transition: transform 300ms var(--md-sys-motion-easing-emphasized), background 300ms, box-shadow 300ms !important; 
     visibility: visible !important;
@@ -180,7 +178,6 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
     box-shadow: 0 12px 32px rgba(0,0,0,0.9) !important; 
 }
 
-/* FIX: Put them securely on the edge but safely within the window bounds */
 .carousel-prev, .showcase-prev { left: -32px !important; }
 .carousel-next, .showcase-next { right: -32px !important; }
 
@@ -342,9 +339,8 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
-    .m3-app-bar { padding: 16px 24px; }
+    /* FIX: Completely hides the top App Bar on Mobile as requested */
+    .m3-app-bar { display: none !important; }
     
     .m3-section { padding: 80px 5vw; }
     .about-card { padding: 40px 24px !important; border-radius: 32px !important; }
@@ -366,7 +362,7 @@ body.loaded .m3-intro-anim { opacity: 1; transform: translateY(0) scale(1); }
     
     .carousel-prev, .showcase-prev, 
     .carousel-next, .showcase-next { 
-        display: none !important; /* ONLY HIDES ON MOBILE PHONES */
+        display: none !important; 
     }
     
     .carousel-mask { 
